@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>Quiz Arena</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="barre-haut">
+        <a class="logo" href="#" aria-label="Quiz MUSAAS, accueil">
+            <span class="logo-icone">QM</span>
+            <span>Quiz <span class="texte-accent">MUSAAS</span></span>
+        </a>
+    </header>
+
+    <main class="conteneur">
+        <!-- ACCUEIL -->
+        <section id="accueil" class="panneau ecran active">
+            <span class="etiquette">CULTIVE-TOI EN T'AMUSANT</span>
+            <h1>Teste tes connaissances.</h1>
+           
+
+            <h2 class="titre-section">Les différentes catégories des questions</h2>
+            <div class="categories">
+                <span>💻 Informatique</span>
+                <span>🔬 Sciences</span>
+                <span>📜 Histoire</span>
+                <span>🌍 Géographie</span>
+                <span>⚽ Sport</span>
+                <span>🎵 Musique</span>
+                <span>🧠 Culture générale</span>
+            </div>
+
+            <form id="formulaire-demarrage">
+                <div class="champ">
+                    <label for="mode">Mode de jeu</label>
+                    <select id="mode" name="mode">
+                        <option value="solo">Solo</option>
+                        <option value="duo">Duo</option>
+                    </select>
+                </div>
+
+                <div class="champs-joueurs">
+                    <div class="champ">
+                        <label for="nom1">Nom du joueur 1</label>
+                        <input
+                            id="nom1"
+                            name="nom1"
+                            type="text"
+                            maxlength="24"
+                            placeholder="Ton prénom"
+                            required
+                        >
+                    </div>
+
+                    <div id="champ-joueur2" class="champ cache">
+                        <label for="nom2">Nom du joueur 2</label>
+                        <input
+                            id="nom2"
+                            name="nom2"
+                            type="text"
+                            maxlength="24"
+                            placeholder="Prénom du deuxième joueur"
+                        >
+                    </div>
+                </div>
+
+                <div class="regles">
+                    <div>
+                        <strong>20</strong>
+                        <span>questions par joueur</span>
+                    </div>
+                    <div>
+                        <strong>30 s</strong>
+                        <span>par question</span>
+                    </div>
+                    <div>
+                        <strong>3</strong>
+                        <span>niveaux de difficulté</span>
+                    </div>
+                </div>
+
+                <button class="bouton bouton-principal" type="submit">
+                    Commencer la partie <span aria-hidden="true">→</span>
+                </button>
+
+                <p class="note">
+                    En duo, chaque joueur répond à ses propres questions
+                    sur le même ordinateur.
+                </p>
+            </form>
+        </section>
+
+        <!-- JEU -->
+        <section id="jeu" class="panneau ecran">
+            <div class="entete-jeu">
+                <button id="quitter" class="bouton-texte" type="button">
+                    ← Quitter
+                </button>
+                <span id="numero-question" class="numero-question">
+                    Question 1 / 20
+                </span>
+                <button id="recommencer" class="bouton-texte" type="button">
+                    Recommencer
+                </button>
+            </div>
+
+            <div class="progression" aria-label="Progression de la partie">
+                <div id="barre-progression"></div>
+            </div>
+
+            <div id="scores" class="scores">
+                <div id="carte-joueur1" class="carte-score active">
+                    <span class="avatar avatar-violet">1</span>
+                    <div class="info-score">
+                        <span id="affichage-nom1">Joueur 1</span>
+                        <strong><span id="score1">0</span> point(s)</strong>
+                    </div>
+                </div>
+
+                <div id="carte-joueur2" class="carte-score cache">
+                    <span class="avatar">2</span>
+                    <div class="info-score">
+                        <span id="affichage-nom2">Joueur 2</span>
+                        <strong><span id="score2">0</span> point(s)</strong>
+                    </div>
+                </div>
+            </div>
+
+            <article class="zone-question">
+                <div class="ligne-question">
+                    <span id="categorie-question" class="categorie-question">
+                        💻 Informatique
+                    </span>
+                    <span id="badge-difficulte" class="badge facile">
+                        Facile
+                    </span>
+                    <span class="chronometre">
+                        <span aria-hidden="true">◷</span>
+                        <strong id="temps">30</strong> s
+                    </span>
+                </div>
+
+                <p id="instruction-question" class="instruction">
+                    À toi de jouer !
+                </p>
+
+                <h2 id="texte-question">La question apparaîtra ici.</h2>
+
+                <div
+                    id="reponses"
+                    class="reponses"
+                    aria-label="Choix de réponses"
+                ></div>
+
+                <div id="correction" class="correction cache" aria-live="polite">
+                    <strong id="titre-correction"></strong>
+                    <p id="explication"></p>
+                </div>
+
+                <button
+                    id="bouton-suivant"
+                    class="bouton bouton-principal cache"
+                    type="button"
+                >
+                    Question suivante →
+                </button>
+            </article>
+
+            <div class="pied-jeu">
+                <span>Quiz Arena</span>
+                <span>Une bonne réponse = 1 point</span>
+            </div>
+        </section>
+
+        <!-- RÉSULTATS -->
+        <section id="resultats" class="panneau ecran resultats">
+            <div id="icone-resultat" class="icone-resultat">🏆</div>
+            <span class="etiquette">PARTIE TERMINÉE</span>
+            <h1 id="titre-resultat">Bravo !</h1>
+            <p id="message-resultat" class="sous-titre">
+                Voici les résultats de la partie.
+            </p>
+
+            <div class="stats-finales">
+                <div>
+                    <span>Bonnes réponses</span>
+                    <strong id="bonnes-reponses">0 / 20</strong>
+                </div>
+                <div>
+                    <span>Réussite</span>
+                    <strong id="pourcentage">0 %</strong>
+                </div>
+                <div>
+                    <span>Durée</span>
+                    <strong id="temps-final">00:00</strong>
+                </div>
+            </div>
+
+            <div id="resume-scores" class="resume-scores"></div>
+
+            <div class="actions-resultat">
+                <button id="rejouer" class="bouton bouton-principal" type="button">
+                    Rejouer
+                </button>
+                <button id="retour-accueil" class="bouton bouton-secondaire" type="button">
+                    Retour à l'accueil
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span>Quiz MUSAAS</span>
+        <span>Apprendre, réfléchir, progresser.</span>
+    </footer>
+</body>
+</html>
